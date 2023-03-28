@@ -3,7 +3,9 @@
 
 ## Description
 Players discover puzzle words or phrases by suggesting letters.
+
 Each incorrect guess adds an element to the hangman diagram.
+
 The game ends when a solution is guessed, or the diagram is completed.
 
 ## Make a Difference
