@@ -1,0 +1,60 @@
+tech support, application program
+tech support, binary data
+tech support, blue screen of death
+tech support, communication
+tech support, computer hacker
+tech support, computer network
+tech support, computer program
+tech support, computer software
+tech support, computer virus
+tech support, data center
+tech support, database
+tech support, desktop
+tech support, development
+tech support, digital currency
+tech support, document management
+tech support, double-click
+tech support, downloaded file
+tech support, electricity
+tech support, electronic mail
+tech support, electronic signature
+tech support, email address
+tech support, email message
+tech support, file server
+tech support, floppy disk
+tech support, framework
+tech support, graphics
+tech support, hardware crash
+tech support, help desk
+tech support, information systems
+tech support, ink cartridge
+tech support, internet browser
+tech support, keyboard
+tech support, macintosh
+tech support, memory chip
+tech support, mobile phone
+tech support, monitor
+tech support, mouse-over
+tech support, network appliance
+tech support, network cable
+tech support, notebook computer
+tech support, personal computer
+tech support, phishing scam
+tech support, printer
+tech support, processor
+tech support, programmer
+tech support, screen saver
+tech support, search engine
+tech support, security
+tech support, social media
+tech support, spreadsheet
+tech support, strong password
+tech support, system error
+tech support, tablet computer
+tech support, technology
+tech support, telephone
+tech support, video game
+tech support, windows
+tech support, workstation
+tech support, world wide web
+tech support, zero-day exploit
