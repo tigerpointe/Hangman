@@ -16,7 +16,7 @@ If you enjoy this software, please consider donating to one of the following:
 [National Brain Tumor Society](https://braintumor.org)
 
 ## Other Word/Phrase Dictionaries
-Here are some additional compatible puzzle dictionaries right here on GitHub:
+Here are some compatible puzzle dictionaries hosted right here on GitHub:
 
 [smithcbp/Powershell-Hangman](https://github.com/smithcbp/Powershell-Hangman)
 
