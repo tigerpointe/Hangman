@@ -278,9 +278,9 @@ while ($more -eq "Y")
     {
       $line = $lines[($count * $height) + $i];
       $line = $line.PadRight($width);
-      if ($i -eq 3)  { $line = "$line Welcome to HANGMAN"; }
-      if ($i -eq 4)  { $line = "$line $category"; }
-      if ($i -eq 7)  { $line = "$line $mask";     }
+      if ($i -eq  3) { $line = "$line Welcome to HANGMAN"; }
+      if ($i -eq  4) { $line = "$line $category"; }
+      if ($i -eq  7) { $line = "$line $mask";     }
       if ($i -eq 11) { $line = "$line Remaining Letters:"; }
       if ($i -eq 12) { $line = "$line $remain";   }
       Write-Host $line;
@@ -321,7 +321,7 @@ while ($more -eq "Y")
 
   # Display the solution message
   $message = "GACK!";
-  if ($mask -eq $word) { $message = "Congratulations!"; }
+  if ($solved) { $message = "Congratulations!"; }
   Write-Host "$message  The solution was $word.";
 
   # Prompt for another game
