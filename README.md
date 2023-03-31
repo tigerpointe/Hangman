@@ -6,7 +6,7 @@ Players discover puzzle words or phrases by suggesting letters.
 
 Each incorrect guess adds an element to the hangman diagram.
 
-The game ends when a solution is guessed, or the diagram is completed.
+The game ends when a solution is guessed, or a diagram is completed.
 
 ## Make a Difference
 If you enjoy this software, please consider donating to one of the following:
