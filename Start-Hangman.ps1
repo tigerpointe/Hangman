@@ -1,7 +1,7 @@
 ﻿<#
 
 .SYNOPSIS
-Starts a classic game of hangman.
+Starts a classic game of Hangman.
 
 .DESCRIPTION
 Players discover puzzle words or phrases by suggesting letters.
@@ -10,7 +10,9 @@ The game ends when a solution is guessed, or the diagram is completed.
 
 Various word or phrase puzzle dictionaries can be found online.
 The dictionary can be a simple list of words or phrases, one per line.
-An optional category can be specified by using a comma separator.
+An optional category can be specified by adding a comma separator.
+For example:  Classic Games, hangman
+              Classic Games, tic-tac-toe
 
 Please consider giving to cancer research.
 
@@ -92,7 +94,7 @@ function Get-NewMask
     , [string]$guess
   )
 
-  # Replace matching characters in the mask with the guesses
+  # Replace matching characters in the mask with the guess value
   # (starts with the puzzle word and copies back the mask characters)
   $chars = $word.ToCharArray();
   for ($i = 0; $i -lt $chars.Length; $i++)
@@ -109,7 +111,10 @@ function Get-NewMask
 # Read the entire dictionary file
 $words = (Get-Content -Path $path -ErrorAction Stop);
 
-# Define the ASCII art (panel images created by Scott S.)
+# Define the list of special non-alphabetic characters
+$special = " !`"#$%&'()*+,-./0123456789:;<=>?@[\]^_``{|}~".ToCharArray();
+
+# Define the ASCII art (original panel images created by Scott S.)
 $ascii = @"
   [ ]============[]
   | |/     |
@@ -232,104 +237,114 @@ $ascii = @"
 '"'"'"'"'"'"'"'"'"'
 "@;
 
-# Define the ASCII art panel variables
-$height = 17;                       # number of text lines per panel
-$width  = 22;                       # includes the horizontal padding
-$ascii  = $ascii.Replace("`r", ""); # removes the carriage returns
-$lines  = $ascii.Split("`n");       # splits on the line feeds
-
-# Loop until no more games are played
-$more = "Y";
-while ($more -eq "Y")
+# Use a try-catch for exceptions because the host is cleared on each guess
+try
 {
 
-  # Initialize the loop control variables
-  $solved  = $false;
-  $count   = 0;
-  $maximum = 7;
+  # Define the ASCII art panel variables
+  $height = 17;                       # number of text lines per panel
+  $width  = 22;                       # includes the horizontal padding
+  $ascii  = $ascii.Replace("`r", ""); # removes the carriage returns
+  $lines  = $ascii.Split("`n");       # splits on the line feeds
 
-  # Initialize the puzzle variables (includes an optional category)
-  $remain   = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  $category = "";
-  $word     = (Get-Random -InputObject $words).ToUpper();
-  $idx      = $word.LastIndexOf(","); # optional category separator
-  if ($idx -ge 0)
-  {
-    $category = "The category is $($word.Substring(0, $idx).Trim())";
-    $idx++;
-    $word     = $word.Substring($idx, ($word.Length - $idx)).Trim();
-  }
-
-  # Show special characters in the mask to support phrases
-  $mask = ("." * $word.Length); # repeats the letter placeholder
-  $mask = (Get-NewMask -word $word -mask $mask -guess " ");
-  $mask = (Get-NewMask -word $word -mask $mask -guess "'");
-  $mask = (Get-NewMask -word $word -mask $mask -guess "-");
-  $mask = (Get-NewMask -word $word -mask $mask -guess "&");
-
-  # Loop until solved or too many incorrect letters are entered
-  while ((-not $solved) -and ($count -lt $maximum))
+  # Loop until no more games are played
+  $more = "Y";
+  while ($more -eq "Y")
   {
 
-    # Display the ASCII art panel for the current count value
-    Clear-Host;
-    Write-Host;
-    for ($i = 0; $i -lt $height; $i++)
+    # Initialize the loop control variables
+    $solved  = $false;
+    $count   = 0;
+    $maximum = 7;
+
+    # Initialize the puzzle variables (includes an optional category)
+    $remain   = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    $category = "";
+    $word     = (Get-Random -InputObject $words).ToUpper();
+    $idx      = $word.LastIndexOf(","); # optional category separator
+    if ($idx -ge 0)
     {
-      $line = $lines[($count * $height) + $i];
-      $line = $line.PadRight($width);
-      if ($i -eq  3) { $line = "$line Welcome to HANGMAN"; }
-      if ($i -eq  4) { $line = "$line $category"; }
-      if ($i -eq  7) { $line = "$line $mask";     }
-      if ($i -eq 11) { $line = "$line Remaining Letters:"; }
-      if ($i -eq 12) { $line = "$line $remain";   }
-      Write-Host $line;
+      $category = "The category is $($word.Substring(0, $idx).Trim())";
+      $idx++;
+      $word     = $word.Substring($idx, ($word.Length - $idx)).Trim();
     }
 
-    # Check for a solved puzzle, exit when true
-    if ($mask -eq $word)
+    # Create a mask and replace the special characters to support phrases
+    $mask = ("." * $word.Length); # repeats a placeholder for each character
+    foreach ($chr in $special)
     {
-      $solved = $true;
-      continue;
+      $mask = (Get-NewMask -word $word -mask $mask -guess $chr);
     }
 
-    # Otherwise, check for remaining guesses
-    if ($count -lt ($maximum - 1))
+    # Loop until solved or too many incorrect letters are entered
+    while ((-not $solved) -and ($count -lt $maximum))
     {
 
-      # Read the next guess (limited to the remaining letters only)
-      $guess = "";
-      while (($guess.Length -ne 1) -or (-not $remain.Contains($guess)))
+      # Display the ASCII art panel for the current count value
+      Clear-Host;
+      Write-Host;
+      for ($i = 0; $i -lt $height; $i++)
       {
-        $guess = Read-Host -Prompt `
-                   "Please choose one of the remaining letters";
-        $guess = $guess.ToUpper();
+        $line = $lines[($count * $height) + $i];
+        $line = $line.PadRight($width);
+        if ($i -eq  3) { $line = "$line Welcome to HANGMAN"; }
+        if ($i -eq  4) { $line = "$line $category"; }
+        if ($i -eq  7) { $line = "$line $mask";     }
+        if ($i -eq 11) { $line = "$line Remaining Letters:"; }
+        if ($i -eq 12) { $line = "$line $remain";   }
+        Write-Host $line;
       }
-      $remain = $remain.Replace($guess, " ");
 
-      # Check for a correct guess and update the mask
-      if ($word.Contains($guess))
+      # Check for a solved puzzle, exit when true
+      if ($mask -eq $word)
       {
-        $mask = (Get-NewMask -word $word -mask $mask -guess $guess);
+        $solved = $true;
         continue;
       }
 
+      # Otherwise, check for remaining guesses
+      if ($count -lt ($maximum - 1))
+      {
+
+        # Read the next guess (limited to the remaining letters only)
+        $guess = "";
+        while (($guess.Length -ne 1) -or (-not $remain.Contains($guess)))
+        {
+          $guess = Read-Host -Prompt `
+                     "Please choose one of the remaining letters";
+          $guess = $guess.ToUpper();
+        }
+        $remain = $remain.Replace($guess, " ");
+
+        # Check for a correct guess and update the mask
+        if (($guess -ne " ") -and ($word.Contains($guess)))
+        {
+          $mask = (Get-NewMask -word $word -mask $mask -guess $guess);
+          continue;
+        }
+
+      }
+      $count++;
+
     }
-    $count++;
+
+    # Display the solution message
+    $message = "GACK!";
+    if ($solved) { $message = "Congratulations!"; }
+    Write-Host "$message  The solution was $word.";
+
+    # Prompt for another game
+    $more = "";
+    while (($more.Length -ne 1) -or (-not ("YN").Contains($more)))
+    {
+      $more = Read-Host -Prompt "Do you want to play another game? (Y/N)";
+      $more = $more.ToUpper();
+    }
 
   }
 
-  # Display the solution message
-  $message = "GACK!";
-  if ($solved) { $message = "Congratulations!"; }
-  Write-Host "$message  The solution was $word.";
-
-  # Prompt for another game
-  $more = "";
-  while (($more.Length -ne 1) -or (-not ("YN").Contains($more)))
-  {
-    $more = Read-Host -Prompt "Do you want to play another game? (Y/N)";
-    $more = $more.ToUpper();
-  }
-
+}
+catch
+{
+  Write-Error $_;
 }

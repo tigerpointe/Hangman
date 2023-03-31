@@ -1,17 +1,29 @@
 tech support, application program
+tech support, artificial intelligence
+tech support, authentication
+tech support, authorization
 tech support, binary data
+tech support, blockchain
 tech support, blue screen of death
+tech support, business continuity plan
+tech support, change management
+tech support, cloud computing
 tech support, communication
 tech support, computer hacker
 tech support, computer network
 tech support, computer program
 tech support, computer software
 tech support, computer virus
+tech support, content management system
 tech support, data center
+tech support, data encryption
 tech support, database
 tech support, desktop
 tech support, development
+tech support, digital certificate
 tech support, digital currency
+tech support, digital signature
+tech support, disaster recovery plan
 tech support, document management
 tech support, double-click
 tech support, downloaded file
@@ -26,10 +38,14 @@ tech support, framework
 tech support, graphics
 tech support, hardware crash
 tech support, help desk
+tech support, identity management
 tech support, information systems
 tech support, ink cartridge
 tech support, internet browser
+tech support, intrusion detection system
 tech support, keyboard
+tech support, learning management system
+tech support, local area network
 tech support, macintosh
 tech support, memory chip
 tech support, mobile phone
@@ -38,23 +54,32 @@ tech support, mouse-over
 tech support, network appliance
 tech support, network cable
 tech support, notebook computer
+tech support, object-oriented programming
 tech support, personal computer
+tech support, personally identifiable information
 tech support, phishing scam
 tech support, printer
 tech support, processor
 tech support, programmer
+tech support, risk management
 tech support, screen saver
 tech support, search engine
 tech support, security
+tech support, single sign-on
 tech support, social media
+tech support, software as a service
 tech support, spreadsheet
 tech support, strong password
+tech support, structured query language
 tech support, system error
 tech support, tablet computer
 tech support, technology
 tech support, telephone
 tech support, video game
+tech support, virtual private network
+tech support, web server
 tech support, windows
+tech support, wireframe model
 tech support, workstation
 tech support, world wide web
 tech support, zero-day exploit
