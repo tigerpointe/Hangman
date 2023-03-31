@@ -6,13 +6,16 @@ Starts a classic game of Hangman.
 .DESCRIPTION
 Players discover puzzle words or phrases by suggesting letters.
 Each incorrect guess adds an element to the hangman diagram.
-The game ends when a solution is guessed, or the diagram is completed.
+The game ends when a solution is guessed, or a diagram is completed.
 
 Various word or phrase puzzle dictionaries can be found online.
 The dictionary can be a simple list of words or phrases, one per line.
+For example:  hangman
+              tic-tac-toe
 An optional category can be specified by adding a comma separator.
 For example:  Classic Games, hangman
               Classic Games, tic-tac-toe
+              Computers, powershell programming
 
 Please consider giving to cancer research.
 
@@ -136,10 +139,27 @@ $ascii = @"
   [ ]============[]
   | |/     |
   | |      |
+  | |    /////
+  | |   {|. .|}
+  | |   O| o |O
+  | |    ( O )
+  | |     ===
   | |
   | |
   | |
   | |
+  | |
+  | |
+  | |
+ /   \
+'"'"'"'"'"'"'"'"'"'
+  [ ]============[]
+  | |/     |
+  | |      |
+  | |    /////
+  | |   {|. .|}
+  | |   O| o |O
+  | |    ( O )
   | |   _ === _
   | |  [  \./  ]
   | |    | . |
@@ -153,10 +173,10 @@ $ascii = @"
   [ ]============[]
   | |/     |
   | |      |
-  | |
-  | |
-  | |
-  | |
+  | |    /////
+  | |   {|. .|}
+  | |   O| o |O
+  | |    ( O )
   | |   _ === _
   | |  [  \./  ]
   | |  | | . |
@@ -170,10 +190,10 @@ $ascii = @"
   [ ]============[]
   | |/     |
   | |      |
-  | |
-  | |
-  | |
-  | |
+  | |    /////
+  | |   {|. .|}
+  | |   O| o |O
+  | |    ( O )
   | |   _ === _
   | |  [  \./  ]
   | |  | | . | |
@@ -187,10 +207,10 @@ $ascii = @"
   [ ]============[]
   | |/     |
   | |      |
-  | |
-  | |
-  | |
-  | |
+  | |    /////
+  | |   {|. .|}
+  | |   O| o |O
+  | |    ( O )
   | |   _ === _
   | |  [  \./  ]
   | |  | | . | |
@@ -204,10 +224,10 @@ $ascii = @"
   [ ]============[]
   | |/     |
   | |      |
-  | |
-  | |
-  | |
-  | |
+  | |    /////
+  | |   {|. .|}
+  | |   O| o |O
+  | |    ( O )
   | |   _ === _
   | |  [  \./  ]
   | |  | | . | |
@@ -255,7 +275,7 @@ try
     # Initialize the loop control variables
     $solved  = $false;
     $count   = 0;
-    $maximum = 7;
+    $maximum = 8;
 
     # Initialize the puzzle variables (includes an optional category)
     $remain   = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
