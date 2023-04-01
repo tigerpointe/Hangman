@@ -1,7 +1,7 @@
 ﻿<#
 
 .SYNOPSIS
-Starts a classic game of Hangman.
+Starts a classic game of Hangman in PowerShell.
 
 .DESCRIPTION
 Players discover puzzle words or phrases by suggesting letters.
@@ -13,9 +13,9 @@ The dictionary can be a simple list of words or phrases, one per line.
 For example:  hangman
               tic-tac-toe
 An optional category can be specified by adding a comma separator.
-For example:  Classic Games, hangman
-              Classic Games, tic-tac-toe
-              Computers, powershell programming
+For example:  classic games, hangman
+              classic games, tic-tac-toe
+              computers, powershell programming
 
 Please consider giving to cancer research.
 
