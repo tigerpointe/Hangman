@@ -9,10 +9,12 @@ Each incorrect guess adds an element to the hangman diagram.
 The game ends when a solution is guessed, or a diagram is completed.
 
 Various word and phrase dictionaries can be found online.
+
 A dictionary can be a simple list of words or phrases, one per line.
 For example:  hangman
               tic-tac-toe
               powershell programming
+
 An optional category can be specified by adding a comma separator.
 For example:  classic games, hangman
               classic games, tic-tac-toe
@@ -108,18 +110,19 @@ function Get-NewMask
       $chars[$i] = $mask.Substring($i, 1);
     }
   }
-  return ($chars -join ""); # return the updated mask value
+  return ($chars -join ""); # returns the updated mask value
 
 }
 
 # Read the entire dictionary file
 Write-Host -Object "Loading ...";
+Start-Sleep -Milliseconds 500;
 $words = (Get-Content -Path $path -ErrorAction Stop);
 
 # Define the list of special non-alphabetic characters
 $special = " !`"#$%&'()*+,-./0123456789:;<=>?@[\]^_``{|}~".ToCharArray();
 
-# Define the ASCII art (original panel images created by Scott S.)
+# Define the ASCII art (originally created by Scott S.)
 $ascii = @"
   [ ]============[]
   | |/     |
@@ -265,9 +268,28 @@ $ascii = @"
   | |  (___'___)
  /   \
 '"'"'"'"'"'"'"'"'"'
+  [ ]============[]
+  | |/
+  | |
+  | |   Yippee!
+  | |
+  | |    /////
+  | |   {|. .|}
+  | |   O| o |O
+  | |    ( ~ )
+  | |   _.| |._
+  | |  [  \./  ]
+  | |  | | . | |
+  | |  |_|=O=|_|
+  | |  (_' | '_)
+  | |    | | |
+  | |   .|_|_|.
+ /   \ (___'___)
+'"'"'"'"'"'"'"'"'"'
 "@;
 
 # Use a try-catch for exceptions because the host is cleared on each guess
+# (otherwise, the exception messages get cleared with the console)
 try
 {
 
@@ -277,21 +299,21 @@ try
   $ascii  = $ascii.Replace("`r", ""); # removes the carriage returns
   $lines  = $ascii.Split("`n");       # splits on the line feeds
 
-  # Loop until no more games are played
+  # Loop while more games are selected
   $more = "Y";
   while ($more -eq "Y")
   {
 
     # Initialize the loop control variables
-    $solved  = $false;
-    $count   = 0;
-    $maximum = 8;
+    $solved  = $false; # not solved
+    $count   = 0;      # no guesses
+    $maximum = 8;      # wrong guesses, number of ASCII art panels minus one
 
     # Initialize the puzzle variables (includes an optional category)
-    $remain   = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    $remain   = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; # holds the remaining letters
     $category = "";
     $word     = (Get-Random -InputObject $words).ToUpper();
-    $idx      = $word.LastIndexOf(","); # optional category separator
+    $idx      = $word.LastIndexOf(","); # finds optional category separator
     if ($idx -ge 0)
     {
       $category = "The category is $($word.Substring(0, $idx).Trim())";
@@ -306,9 +328,16 @@ try
       $mask = (Get-NewMask -word $word -mask $mask -guess $chr);
     }
 
-    # Loop until solved or too many incorrect letters are entered
+    # Loop while not solved and remaining guesses are available
     while ((-not $solved) -and ($count -lt $maximum))
     {
+
+      # Check for a solved puzzle and skip to the winning count value
+      if ($mask -eq $word)
+      {
+        $solved = $true;
+        $count  = $maximum;
+      }
 
       # Display the ASCII art panel for the current count value
       Clear-Host;
@@ -325,12 +354,8 @@ try
         Write-Host $line;
       }
 
-      # Check for a solved puzzle, exit when true
-      if ($mask -eq $word)
-      {
-        $solved = $true;
-        continue;
-      }
+      # If solved, exit the loop (winning screen has been drawn)
+      if ($solved) { continue; }
 
       # Otherwise, check for remaining guesses
       if ($count -lt ($maximum - 1))
@@ -356,7 +381,7 @@ try
       }
       $count++;
 
-    }
+    } # end solved-count-maximum loop
 
     # Display the solution message
     $message = "GACK!";
@@ -371,7 +396,7 @@ try
       $more = $more.ToUpper();
     }
 
-  }
+  } # end more loop
 
 }
 catch
