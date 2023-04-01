@@ -8,10 +8,11 @@ Players discover puzzle words or phrases by suggesting letters.
 Each incorrect guess adds an element to the hangman diagram.
 The game ends when a solution is guessed, or a diagram is completed.
 
-Various word or phrase puzzle dictionaries can be found online.
-The dictionary can be a simple list of words or phrases, one per line.
+Various word and phrase dictionaries can be found online.
+A dictionary can be a simple list of words or phrases, one per line.
 For example:  hangman
               tic-tac-toe
+              powershell programming
 An optional category can be specified by adding a comma separator.
 For example:  classic games, hangman
               classic games, tic-tac-toe
@@ -112,6 +113,7 @@ function Get-NewMask
 }
 
 # Read the entire dictionary file
+Write-Host -Object "Loading ...";
 $words = (Get-Content -Path $path -ErrorAction Stop);
 
 # Define the list of special non-alphabetic characters
@@ -134,15 +136,16 @@ $ascii = @"
   | |
   | |
   | |
- /   \
+  | |  .=======.
+ /   \ |       |
 '"'"'"'"'"'"'"'"'"'
   [ ]============[]
   | |/     |
   | |      |
   | |    /////
-  | |   {|. .|}
+  | |   {|_ _|}
   | |   O| o |O
-  | |    ( O )
+  | |    ( - )
   | |     ===
   | |
   | |
@@ -151,7 +154,8 @@ $ascii = @"
   | |
   | |
   | |
- /   \
+  | |  .=======.
+ /   \ |       |
 '"'"'"'"'"'"'"'"'"'
   [ ]============[]
   | |/     |
@@ -168,15 +172,16 @@ $ascii = @"
   | |
   | |
   | |
- /   \
+  | |  .=======.
+ /   \ |       |
 '"'"'"'"'"'"'"'"'"'
   [ ]============[]
   | |/     |
   | |      |
   | |    /////
-  | |   {|. .|}
+  | |   {|. _|}
   | |   O| o |O
-  | |    ( O )
+  | |    ( - )
   | |   _ === _
   | |  [  \./  ]
   | |  | | . |
@@ -185,15 +190,16 @@ $ascii = @"
   | |
   | |
   | |
- /   \
+  | |  .=======.
+ /   \ |       |
 '"'"'"'"'"'"'"'"'"'
   [ ]============[]
   | |/     |
   | |      |
   | |    /////
-  | |   {|. .|}
+  | |   {|_ .|}
   | |   O| o |O
-  | |    ( O )
+  | |    ( - )
   | |   _ === _
   | |  [  \./  ]
   | |  | | . | |
@@ -202,7 +208,8 @@ $ascii = @"
   | |
   | |
   | |
- /   \
+  | |  .=======.
+ /   \ |       |
 '"'"'"'"'"'"'"'"'"'
   [ ]============[]
   | |/     |
@@ -210,7 +217,7 @@ $ascii = @"
   | |    /////
   | |   {|. .|}
   | |   O| o |O
-  | |    ( O )
+  | |    ( - )
   | |   _ === _
   | |  [  \./  ]
   | |  | | . | |
@@ -219,7 +226,8 @@ $ascii = @"
   | |    | |
   | |   .|_|
   | |  (___'
- /   \
+  | |  .=======.
+ /   \ |       |
 '"'"'"'"'"'"'"'"'"'
   [ ]============[]
   | |/     |
@@ -236,10 +244,12 @@ $ascii = @"
   | |    | | |
   | |   .|_|_|.
   | |  (___'___)
- /   \
+  | |  .=======.
+ /   \ |       |
 '"'"'"'"'"'"'"'"'"'
   [ ]============[]
   | |/     |
+  | |      |
   | |      |
   | |    /////
   | |   {|x x|}
@@ -262,7 +272,7 @@ try
 {
 
   # Define the ASCII art panel variables
-  $height = 17;                       # number of text lines per panel
+  $height = 18;                       # number of text lines per panel
   $width  = 22;                       # includes the horizontal padding
   $ascii  = $ascii.Replace("`r", ""); # removes the carriage returns
   $lines  = $ascii.Split("`n");       # splits on the line feeds
