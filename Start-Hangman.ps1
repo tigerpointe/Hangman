@@ -66,6 +66,7 @@ If you enjoy this software, please do something kind for free.
 
 History:
 01.00 2023-Apr-01 Scott S. Initial release.
+01.01 2023-Apr-04 Scott S. Fix whitespace.
 
 .LINK
 https://en.wikipedia.org/wiki/Hangman_(game)
@@ -95,9 +96,9 @@ function Get-NewMask
 {
   param
   (
-      [string]$word
-    , [string]$mask
-    , [string]$guess
+      [string]$word  # the original word value
+    , [string]$mask  # the mask with placeholders
+    , [string]$guess # the letter guess
   )
 
   # Replace matching characters in the mask with the guess value
@@ -312,7 +313,7 @@ try
     # Initialize the puzzle variables (includes an optional category)
     $remain   = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; # holds the remaining letters
     $category = "";
-    $word     = (Get-Random -InputObject $words).ToUpper();
+    $word     = (Get-Random -InputObject $words).Trim().ToUpper();
     $idx      = $word.LastIndexOf(","); # finds optional category separator
     if ($idx -ge 0)
     {
