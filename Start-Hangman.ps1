@@ -96,7 +96,7 @@ function Get-NewMask
 {
   param
   (
-      [string]$word  # the original word value
+      [string]$word  # the original puzzle word value
     , [string]$mask  # the mask with placeholders
     , [string]$guess # the letter guess
   )
