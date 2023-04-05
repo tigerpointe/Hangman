@@ -348,10 +348,10 @@ try
         $line = $lines[($count * $height) + $i];
         $line = $line.PadRight($width);
         if ($i -eq  3) { $line = "$line Welcome to HANGMAN"; }
-        if ($i -eq  4) { $line = "$line $category"; }
-        if ($i -eq  7) { $line = "$line $mask";     }
-        if ($i -eq 11) { $line = "$line Remaining Letters:"; }
-        if ($i -eq 12) { $line = "$line $remain";   }
+        elseif ($i -eq  4) { $line = "$line $category"; }
+        elseif ($i -eq  7) { $line = "$line $mask";     }
+        elseif ($i -eq 11) { $line = "$line Remaining Letters:"; }
+        elseif ($i -eq 12) { $line = "$line $remain";   }
         Write-Host $line;
       }
 
@@ -362,7 +362,7 @@ try
       if ($count -lt ($maximum - 1))
       {
 
-        # Read the next guess (limited to the remaining letters only)
+        # Read the next guess (limit to the remaining letters only)
         $guess = "";
         while (($guess.Length -ne 1) -or (-not $remain.Contains($guess)))
         {
@@ -380,6 +380,8 @@ try
         }
 
       }
+
+      # Increment the counter for an incorrect guess
       $count++;
 
     } # end solved-count-maximum loop
