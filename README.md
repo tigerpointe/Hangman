@@ -8,6 +8,8 @@ Each incorrect guess adds an element to the hangman diagram.
 
 The game ends when a solution is guessed, or a diagram is completed.
 
+![Hangman](screenshot.png)
+
 ## Make a Difference
 If you enjoy this software, please consider donating to one of the following:
 
